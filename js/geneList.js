@@ -1,0 +1,1 @@
+var geneList=["Ascl1","Bdnf","Creb1","Cux2","Fez1","Hes1","Mef2c","Myt1l","Neurod1","Neurog1","Neurog2","Nog","Olig2","Otx1","Otx2","Pax3","Pax5","Pax6","Pou3f2","Pou4f2","Prox13","Satb2","Sox10","Sox11","Sox12","Sox2","Sox3","Sox4","Sox5","Sox6","Sox7","Sox8","Sox9","Stat3"]

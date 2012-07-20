@@ -1,0 +1,23 @@
+filename = '../js/geneList.js';
+
+geneList={
+    'Pax6','Sox5', 'Otx1', 'Otx2', 'Fez1', 'Cux2', 'Satb2','Ascl1','Neurod1','Pou3f2',...
+    'Myt1l','Mef2c','Sox2','Sox3','Sox4','Sox5','Sox6','Sox7','Sox8','Sox9','Sox10',...
+    'Sox11','Sox12','Prox13','Trb1','Trb2','Olig2','Bdnf','Hes1',};
+
+geneList=unique(sort(geneList));
+
+fid = fopen(filename, 'w');
+fprintf(fid, '%s', 'var geneList=[');
+
+
+for g=1:size(geneList,2)
+	if g>1
+        fprintf(fid, '%s', ',');
+    end
+    s = ['"',geneList{g},'"'];
+    fprintf(fid, '%s', s);
+end
+
+fprintf(fid, '%s', ']');
+fclose(fid);

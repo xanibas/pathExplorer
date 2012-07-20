@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Developmental pathways in the Allen Brain Database</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="./js/d3.v2.min.js"></script>
+    <script type="text/javascript" src="./js/updateGraph.js"></script>
+  </head>
+  
+  <style>
+
+.link {
+  stroke: #888;
+}
+
+.node text {
+  pointer-events: none;
+  font: 10px sans-serif;
+}
+
+</style>
+  
+  <body>
+  
+  	<h1>Explore time correlations of gene expression in different brain structures during mouse brain development</h1>
+  	
+  	<p align="justify">Project developed during the Allen Brain Hackathon, Seattle, USA, June 2012.</p>
+  	
+  	<TABLE FRAME=VOID CELLSPACING=2 COLS=2 RULES=NONE BORDER=0>
+	<COLGROUP><COL WIDTH=300><COL WIDTH=100></COLGROUP>
+	<TBODY>
+		<TR>
+			<TD ALIGN=LEFT BGCOLOR="#FFFFFF "><FONT SIZE=3>Select a correlation threshold:</FONT></TD>
+			<TD ALIGN=LEFT BGCOLOR="#FFFFFF "><FONT SIZE=3><select id="selectThreshold" onChange="updateOpacity(this)"></select></FONT></TD>
+		</TR>
+		<TR>
+			<TD ALIGN=LEFT BGCOLOR="#FFFFFF "><FONT SIZE=3>Select a gene of interest:</FONT></TD>
+			<TD ALIGN=LEFT BGCOLOR="#FFFFFF "><FONT SIZE=3><select id="selectGene" onChange="updateSize(this)"></select></FONT></TD>
+		</TR>
+	</TBODY>
+</TABLE>
+ 	
+ 	<br>
+ 	
+ 	<div id="graph">
+
+	<script type="text/javascript" src="./js/timeGraph.js"></script>
+	
+	</div>
+	
+  </body>
