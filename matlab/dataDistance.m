@@ -1,8 +1,5 @@
 function Y = dataDistance(X)
 
-% Get differences in expression in time
-X = getDifferences(X);
-
 % Compute distances by ignoring NaN
 Y = zeros(size(X,1),size(X,1));
 for i=1:size(X,1)
@@ -21,7 +18,7 @@ for i=1:size(X,1)
 end
 
 % Normalize to 1
-Y = (Y./max(max(Y)));
+Y = Y./max(max(abs(Y)));
 
 %Y(find(isnan(Y)==1))= 0;
 % Z = linkage(squareform(Y), 'weighted');

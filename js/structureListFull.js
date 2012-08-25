@@ -1,0 +1,1 @@
+var structureList=['CSP','D','F','H','M','MH','MTg','MTt','PH','PIsTg','PIsTt','PMH','POTel','PPH','PPHy','PTh','PThTg','PedHy','Pt','PtTg','RSP','SP','Tel','Th','ThTg','is','m1','m2','p1','p2','p3','r1','r10','r11','r2','r3','r4','r5','r6','r7','r8','r9']

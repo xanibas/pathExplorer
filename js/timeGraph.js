@@ -1,5 +1,5 @@
-var width = 800,
-    height = 600
+var width = 1000,
+    height = 700
     
 var color = d3.scale.category20();
 
@@ -20,12 +20,13 @@ var svg = d3.select("#graph")
 
 var select = document.getElementById("selectThreshold");    
   for(var i = 0; i < 11; i++) {
-	var opt = i/10;
+	var opt = i/20;
 	var el = document.createElement("option");
 	el.textContent = opt;
 	el.value = opt;
 	select.appendChild(el);
 }
+document.getElementById("selectThreshold").selectedIndex= 10;
 
 svg.selectAll("circle")
     .data(dataLegend).enter().append("svg:circle")
@@ -45,10 +46,35 @@ svg.selectAll("a.legend")
 
 var force = d3.layout.force()
     .gravity(0.1)
-    .linkDistance( function(d) { return ((15/(d.value))); })
-    .linkStrength( function(d) { return d.value; })
+    .linkDistance( function(d) { return getDistance(d); })
+    .linkStrength( function(d) { return getStrength(d); })
     .charge(-100)
     .size([width, height]);
+    
+function sig(value) {
+	return value*(1-value);
+}
+
+function getDistance(link) {
+	if (link.type=="horizontal")
+		return 1+500*sig(link.values[0].distance);
+	else
+		return 1+1000*sig(link.values[0].distance);
+}
+
+function getStrength(link) {
+	if (link.type=="horizontal")
+		return 0;
+	else
+		return Math.max(0,1-sig(link.values[0].distance));
+}
+
+function getOpacity(link) {
+	if (link.type=="horizontal")
+		return 0;
+	else
+		return Math.max(1-5*sig(link.values[0].distance));
+}
 
 d3.json("data/queryGraph.json", function(json) {
   force
@@ -60,8 +86,8 @@ d3.json("data/queryGraph.json", function(json) {
       .data(json.links)
       .enter().append("line")
       .attr("class", "link")
-      .style("stroke-opacity", function(d) { return 2*d.value;})
-      .style("stroke-width", function(d) { return 5*d.value; });
+      .style("stroke-opacity", function(d) { return getOpacity(d);})
+      .style("stroke-width", function(d) { return getOpacity(d); });
 
   var node = svg.selectAll(".node")
       .data(json.nodes)
@@ -89,20 +115,20 @@ d3.json("data/queryGraph.json", function(json) {
 	el.value = opt;
 	select.appendChild(el);
   }
- 
-//  var linkedByIndex = {};
-//  json.links.forEach(function(d) {
-//  		if (d.value>0.3)
-//        	linkedByIndex[d.source.index + "," + d.target.index] = 1;
-//  });
-//  
-//  function isConnected(a, b) {
-//        return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
-//  }
+  
+  var linkedByIndex = {};
+  json.links.forEach(function(d) {
+  		if (d.type=="vertical")
+        	linkedByIndex[d.source.index + "," + d.target.index] = 1;
+  });
+  
+  function isConnected(a, b) {
+        return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
+  }
 
-	node
-        .filter(function(d) { return d.genes[0].measured=="false"; })
-        .attr("transform", function(d) { return "translate(" + -10 + "," + -10 + ")"; });
+	//node
+    //    .filter(function(d) { return d.genes[0].measured=="false"; })
+    //    .attr("transform", function(d) { return "translate(" + -10 + "," + -10 + ")"; });
 
   force.on("tick", function() {
   
@@ -112,7 +138,7 @@ d3.json("data/queryGraph.json", function(json) {
         .attr("y2", function(d) { return d.target.y; });
 
     node
-        .filter(function(d) { return d.genes[0].measured=="true"; })
+        //.filter(function(d) { return d.genes[0].measured=="true"; })
         .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
   });
   

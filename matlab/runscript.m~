@@ -8,9 +8,9 @@ D = getDifferences(data.data);
 
 % compute correlations
 %Y = corrcoef(D','rows','pairwise');
-C = dataDistance(norma(data.data));
+C = dataDistance(getDifferences(data.data));
 Y = dataDistance(getDifferences(data.data));
 
 % write to files
-writeJson(data.data,data.textdata(4:end),D,Y,C,'../data/queryGraph.json');
+writeJson(data.data,data.textdata(4:end),D,Y,'../data/queryGraph.json');
 %writeXgmml(data.data,data.textdata(4:end),D,Y,'../../../Eclipse3/queryGraph.xgmml');
